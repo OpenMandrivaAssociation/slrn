@@ -27,6 +27,7 @@ Requires:	slang >= 2.0.0, inews
 BuildRoot:	%{_tmppath}/%{name}-build
 BuildRequires:  slang-devel >= 2.0.0
 BuildRequires:  sendmail-command
+BuildRequires:	gettext-devel
 
 %description
 SLRN is a powerful, easy to use, threaded Internet news reader.  SLRN is
