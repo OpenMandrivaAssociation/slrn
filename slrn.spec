@@ -58,10 +58,10 @@ spool for offline news reading.
 
 %build
 %if %cvs
-./autogen.sh
+./autogen.sh --sysconfdir=%{_sysconfdir}/news --with-slang-library=%_libdir --with-slrnpull
 %endif
 # FHS compliant install
-%configure --sysconfdir=%{_sysconfdir}/news --with-slrnpull
+%configure --sysconfdir=%{_sysconfdir}/news --with-slang-library=%_libdir --with-slrnpull
 %make
 
 %install
