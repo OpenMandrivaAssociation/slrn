@@ -1,6 +1,11 @@
 %define name	slrn
-%define version 0.9.8.1
-%define release %mkrel 5
+%define version 0.9.8.2
+%define cvs	20070607
+%if %cvs
+%define release %mkrel 0.%cvs.1
+%else
+%define release %mkrel 1
+%endif
 
 Name:		%{name}
 Summary:	A powerful, easy to use, threaded Internet news reader
@@ -9,16 +14,18 @@ Release:	%{release}
 License:	GPL
 Group:		Networking/News
 URL:		http://www.slrn.org/
+%if %cvs
+Source0:	%{name}-%{cvs}.tar.bz2
+%else
 Source0:	ftp://slrn.sourceforge.net/pub/slrn/%{name}-%{version}.tar.bz2
+%endif
 Source1:	slrnpull-expire
 Source2:	slrnpull.log
 Source3:	README.rpm-slrnpull
-Patch0:		slrn-0.9.8.0-utf8.patch
-Patch1:		slrn-0.9.8.1-fetch.diff
-Patch2:		slrn-0.9.8.1-lastchar2.diff
-Requires:	slang >= 1.4.0, inews
+#Patch0:		slrn-0.9.8.0-utf8.patch
+Requires:	slang >= 2.0.0, inews
 BuildRoot:	%{_tmppath}/%{name}-build
-BuildRequires:  slang-devel 
+BuildRequires:  slang-devel >= 2.0.0
 BuildRequires:  sendmail-command
 
 %description
@@ -41,12 +48,17 @@ This package provides slrnpull, which allows set up of a small news
 spool for offline news reading.
 
 %prep
+%if %cvs
+%setup -q -n %{name}
+%else
 %setup  -q
-%patch0 -p0 -b .utf8
-%patch1 -p1 -b .fetch
-%patch2 -p1 -b .lastchar
+%endif
+#%patch0 -p0 -b .utf8
 
 %build
+%if %cvs
+./autogen.sh
+%endif
 # FHS compliant install
 %configure --sysconfdir=%{_sysconfdir}/news --with-slrnpull
 %make
