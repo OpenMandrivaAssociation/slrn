@@ -78,20 +78,6 @@ chmod 644 $RPM_BUILD_ROOT/etc/news/slrn.rc
 #cp      %{SOURCE3} doc/slrnpull/README.rpm
 #chmod 644 doc/slrnpull/*
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop <<EOF
-[Desktop Entry]
-Encoding=UTF-8
-Name=SLRN
-Comment=Newsreader
-Exec=%{_bindir}/%{name} 
-Icon=news_section.png
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=Network;News;X-MandrivaLinux-Internet-News;
-EOF
-
 #(peroyvind) remove unpackaged files
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 
@@ -113,7 +99,6 @@ rm -rf %buildroot
 %config(noreplace) %{_sysconfdir}/news/*
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*
-%_datadir/applications/mandriva-%{name}.desktop
 
 %files pull
 %defattr(-,root,root)
