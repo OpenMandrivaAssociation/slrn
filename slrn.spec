@@ -1,6 +1,6 @@
 %define name	slrn
 %define version 0.9.8.1
-%define release %mkrel 4 
+%define release %mkrel 5
 
 Name:		%{name}
 Summary:	A powerful, easy to use, threaded Internet news reader
@@ -9,11 +9,13 @@ Release:	%{release}
 License:	GPL
 Group:		Networking/News
 URL:		http://www.slrn.org/
-Source0:        ftp://slrn.sourceforge.net/pub/slrn/%{name}-%{version}.tar.bz2
+Source0:	ftp://slrn.sourceforge.net/pub/slrn/%{name}-%{version}.tar.bz2
 Source1:	slrnpull-expire
 Source2:	slrnpull.log
 Source3:	README.rpm-slrnpull
 Patch0:		slrn-0.9.8.0-utf8.patch
+Patch1:		slrn-0.9.8.1-fetch.diff
+Patch2:		slrn-0.9.8.1-lastchar2.diff
 Requires:	slang >= 1.4.0, inews
 BuildRoot:	%{_tmppath}/%{name}-build
 BuildRequires:  slang-devel 
@@ -41,6 +43,8 @@ spool for offline news reading.
 %prep
 %setup  -q
 %patch0 -p0 -b .utf8
+%patch1 -p1 -b .fetch
+%patch2 -p1 -b .lastchar
 
 %build
 # FHS compliant install
@@ -61,12 +65,18 @@ chmod 644 $RPM_BUILD_ROOT/etc/news/slrn.rc
 #cp      %{SOURCE3} doc/slrnpull/README.rpm
 #chmod 644 doc/slrnpull/*
 
-# Menu entry
-mkdir -p %buildroot/%_menudir
-cat > %buildroot/%_menudir/%name <<EOF
-?package(%{name}):\
- 	command="%_bindir/slrn" needs="text" icon="news_section.png"\
-  	section="Networking/News" title="Slrn" longtitle="A powerful, easy to use, threaded Internet news reader"
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
+cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Name=SLRN
+Comment=Newsreader
+Exec=%{_bindir}/%{name} 
+Icon=news_section.png
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Network;News;X-MandrivaLinux-Internet-News;
 EOF
 
 #(peroyvind) remove unpackaged files
@@ -90,7 +100,7 @@ rm -rf %buildroot
 %config(noreplace) %{_sysconfdir}/news/*
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*
-%_menudir/*
+%_datadir/applications/mandriva-%{name}.desktop
 
 %files pull
 %defattr(-,root,root)
