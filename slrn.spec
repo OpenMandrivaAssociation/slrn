@@ -61,7 +61,7 @@ spool for offline news reading.
 %make
 
 %install
-%makeinstall
+%makeinstall_std
 %find_lang %{name}
 
 mkdir -p %{buildroot}/etc/{cron.daily,logrotate.d,news}
