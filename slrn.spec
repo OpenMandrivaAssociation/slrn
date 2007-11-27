@@ -1,8 +1,8 @@
 %define name	slrn
-%define version 0.9.8.2
-%define cvs	20070607
-%if %cvs
-%define release %mkrel 0.%cvs.1
+%define version 0.9.9
+%define svn	254
+%if %svn
+%define release %mkrel 0.%svn.1
 %else
 %define release %mkrel 1
 %endif
@@ -11,19 +11,19 @@ Name:		%{name}
 Summary:	A powerful, easy to use, threaded Internet news reader
 Version:	%{version}
 Release:	%{release}
-License:	GPL
+License:	GPLv2+
 Group:		Networking/News
 URL:		http://www.slrn.org/
-%if %cvs
-Source0:	%{name}-%{cvs}.tar.bz2
+%if %svn
+Source0:	%{name}-%{svn}.tar.lzma
 %else
 Source0:	ftp://slrn.sourceforge.net/pub/slrn/%{name}-%{version}.tar.bz2
 %endif
 Source1:	slrnpull-expire
 Source2:	slrnpull.log
 Source3:	README.rpm-slrnpull
-#Patch0:		slrn-0.9.8.0-utf8.patch
-Requires:	slang >= 2.0.0, inews
+Requires:	slang >= 2.0.0
+Requires:	inews
 BuildRoot:	%{_tmppath}/%{name}-build
 BuildRequires:  slang-devel >= 2.0.0
 BuildRequires:  sendmail-command
@@ -49,37 +49,27 @@ This package provides slrnpull, which allows set up of a small news
 spool for offline news reading.
 
 %prep
-%if %cvs
+%if %svn
 %setup -q -n %{name}
 %else
 %setup  -q
 %endif
-#%patch0 -p0 -b .utf8
 
 %build
-%if %cvs
-./autogen.sh --sysconfdir=%{_sysconfdir}/news --with-slang-library=%_libdir --with-slrnpull
-%endif
 # FHS compliant install
-%configure --sysconfdir=%{_sysconfdir}/news --with-slang-library=%_libdir --with-slrnpull
+%configure2_5x --sysconfdir=%{_sysconfdir}/news --with-slang-library=%_libdir --with-slrnpull
 %make
 
 %install
 %makeinstall
 %find_lang %{name}
 
-mkdir -p $RPM_BUILD_ROOT/etc/{cron.daily,logrotate.d,news}
-install doc/slrn.rc $RPM_BUILD_ROOT/etc/news/
-chmod 644 $RPM_BUILD_ROOT/etc/news/slrn.rc
-#install -d $RPM_BUILD_ROOT/var/spool/slrnpull/out.going
-#install doc/slrnpull/slrnpull.conf $RPM_BUILD_ROOT/var/spool/slrnpull
-#install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.daily
-#install %{SOURCE2} $RPM_BUILD_ROOT/etc/logrotate.d/slrnpull
-#cp      %{SOURCE3} doc/slrnpull/README.rpm
-#chmod 644 doc/slrnpull/*
+mkdir -p %{buildroot}/etc/{cron.daily,logrotate.d,news}
+install doc/slrn.rc %{buildroot}/etc/news/
+chmod 644 %{buildroot}/etc/news/slrn.rc
 
 #(peroyvind) remove unpackaged files
-rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
+rm -rf %{buildroot}%{_docdir}/%{name}
 
 %clean
 rm -rf %buildroot
@@ -91,9 +81,7 @@ rm -rf %buildroot
 
 %files -f %{name}.lang 
 %defattr(-,root,root)
-%doc COPYING    doc/FIRST_STEPS doc/README.SSL doc/help.txt doc/score.txt doc/slrnfuns.txt
-%doc COPYRIGHT  README            doc/README.macros     doc/THANKS       doc/manual.txt  doc/slrn-doc.html
-%doc doc/FAQ doc/README.GroupLens  doc/README.multiuser changes.txt  doc/score.sl    doc/slrn.rc
+%doc doc/{FIRST_STEPS,README.SSL,help.txt,score.txt,slrnfuns.txt,README.macros,THANKS,manual.txt,slrn-doc.html,FAQ,README.GroupLens,README.multiuser,score.sl,slrn.rc} COPYRIGHT README changes.txt
 %attr(755,root,root) %{_bindir}/slrn
 %{_mandir}/man1/slrn.1*
 %config(noreplace) %{_sysconfdir}/news/*
@@ -104,10 +92,5 @@ rm -rf %buildroot
 %defattr(-,root,root)
 %doc doc/slrnpull/*
 %{_mandir}/man1/slrnpull*
-#%attr(755,root,root) %config(noreplace) %{_sysconfdir}/cron.daily/slrnpull-expire
-#%config(noreplace) %{_sysconfdir}/logrotate.d/slrnpull
 %{_bindir}/slrnpull
-#%attr(775,news,news) %dir /var/spool/slrnpull
-#%attr(3777,news,news) %dir /var/spool/slrnpull/out.going
-#%attr(644,news,news) %config(noreplace) /var/spool/slrnpull/slrnpull.conf
 
