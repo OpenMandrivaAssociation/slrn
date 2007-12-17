@@ -24,7 +24,6 @@ Source2:	slrnpull.log
 Source3:	README.rpm-slrnpull
 Requires:	slang >= 2.0.0
 Requires:	inews
-BuildRoot:	%{_tmppath}/%{name}-build
 BuildRequires:  slang-devel >= 2.0.0
 BuildRequires:  sendmail-command
 BuildRequires:	gettext-devel
