@@ -1,15 +1,13 @@
-%define name	slrn
-%define version 0.9.9
-%define svn	254
+%define svn	266
 %if %svn
 %define release %mkrel 0.%svn.1
 %else
 %define release %mkrel 1
 %endif
 
-Name:		%{name}
+Name:		slrn
 Summary:	A powerful, easy to use, threaded Internet news reader
-Version:	%{version}
+Version:	0.9.9
 Release:	%{release}
 License:	GPLv2+
 Group:		Networking/News
@@ -56,11 +54,17 @@ spool for offline news reading.
 %endif
 
 %build
+# Fix install of slrnpull man page, seems to be broken upstream
+# - AdamW 2008/02
+sed -i -e 's,slrn.1,*.1,g' src/Makefile.in
 # FHS compliant install
-%configure2_5x --sysconfdir=%{_sysconfdir}/news --with-slang-library=%_libdir --with-slrnpull
+%configure2_5x --sysconfdir=%{_sysconfdir}/news --with-slang-library=%{_libdir} --with-slrnpull
 %make
+# Force build of slrnpull, again seems broken upstream - AdaMw 2008/02
+%make slrnpull
 
 %install
+rm -rf %{buildroot}
 %makeinstall_std
 %find_lang %{name}
 
@@ -72,12 +76,7 @@ chmod 644 %{buildroot}/etc/news/slrn.rc
 rm -rf %{buildroot}%{_docdir}/%{name}
 
 %clean
-rm -rf %buildroot
-
-%post
-%update_menus
-%postun
-%update_menus
+rm -rf %{buildroot}
 
 %files -f %{name}.lang 
 %defattr(-,root,root)
