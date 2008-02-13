@@ -1,8 +1,8 @@
 %define svn	266
 %if %svn
-%define release %mkrel 0.%svn.1
+%define release %mkrel 0.%svn.2
 %else
-%define release %mkrel 2
+%define release %mkrel 1
 %endif
 
 Name:		slrn
