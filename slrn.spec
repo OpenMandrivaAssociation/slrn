@@ -2,7 +2,7 @@
 %if %svn
 %define release %mkrel 0.%svn.1
 %else
-%define release %mkrel 1
+%define release %mkrel 2
 %endif
 
 Name:		slrn
@@ -22,6 +22,7 @@ Source2:	slrnpull.log
 Source3:	README.rpm-slrnpull
 Requires:	slang >= 2.0.0
 Requires:	inews
+Suggests:	lynx
 BuildRoot:	%{_tmppath}/%{name}-build
 BuildRequires:  slang-devel >= 2.0.0
 BuildRequires:  sendmail-command
@@ -57,6 +58,8 @@ spool for offline news reading.
 # Fix install of slrnpull man page, seems to be broken upstream
 # - AdamW 2008/02
 sed -i -e 's,slrn.1,*.1,g' src/Makefile.in
+# Better default browser - AdamW 2008/02
+sed -i -e 's,netscape,www-browser,g' doc/slrn.rc
 # FHS compliant install
 %configure2_5x --sysconfdir=%{_sysconfdir}/news --with-slang-library=%{_libdir} --with-slrnpull
 %make
