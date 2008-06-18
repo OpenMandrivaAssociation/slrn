@@ -2,7 +2,7 @@
 %if %svn
 %define release %mkrel 0.%svn.2
 %else
-%define release %mkrel 1
+%define release %mkrel 2
 %endif
 
 Name:		slrn
