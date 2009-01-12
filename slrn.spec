@@ -1,22 +1,11 @@
-%define svn	266
-%if %svn
-%define release %mkrel 0.%svn.2
-%else
-%define release %mkrel 2
-%endif
-
 Name:		slrn
 Summary:	A powerful, easy to use, threaded Internet news reader
-Version:	0.9.9
-Release:	%{release}
+Version:	0.9.9p1
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/News
 URL:		http://www.slrn.org/
-%if %svn
-Source0:	%{name}-%{svn}.tar.lzma
-%else
 Source0:	ftp://slrn.sourceforge.net/pub/slrn/%{name}-%{version}.tar.bz2
-%endif
 Source1:	slrnpull-expire
 Source2:	slrnpull.log
 Source3:	README.rpm-slrnpull
@@ -48,11 +37,7 @@ This package provides slrnpull, which allows set up of a small news
 spool for offline news reading.
 
 %prep
-%if %svn
-%setup -q -n %{name}
-%else
 %setup  -q
-%endif
 
 %build
 # Fix install of slrnpull man page, seems to be broken upstream
@@ -81,7 +66,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %clean
 rm -rf %{buildroot}
 
-%files -f %{name}.lang 
+%files -f %{name}.lang
 %defattr(-,root,root)
 %doc doc/{FIRST_STEPS,README.SSL,help.txt,score.txt,slrnfuns.txt,README.macros,THANKS,manual.txt,slrn-doc.html,FAQ,README.GroupLens,README.multiuser,score.sl,slrn.rc} COPYRIGHT README changes.txt
 %attr(755,root,root) %{_bindir}/slrn
