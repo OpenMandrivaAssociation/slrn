@@ -46,9 +46,9 @@ sed -i -e 's,slrn.1,*.1,g' src/Makefile.in
 # Better default browser - AdamW 2008/02
 sed -i -e 's,netscape,www-browser,g' doc/slrn.rc
 # FHS compliant install
-%configure2_5x --sysconfdir=%{_sysconfdir}/news --with-slang-library=%{_libdir} --with-slrnpull
+%configure2_5x --sysconfdir=%{_sysconfdir}/news --with-slanglib=%{_libdir} --with-slanginc=%{_includedir}/slang --with-slrnpull
 %make
-# Force build of slrnpull, again seems broken upstream - AdaMw 2008/02
+# Force build of slrnpull, again seems broken upstream - AdamW 2008/02
 %make slrnpull
 
 %install
