@@ -1,7 +1,7 @@
 Name:		slrn
 Summary:	A powerful, easy to use, threaded Internet news reader
 Version:	0.9.9p1
-Release:	%mkrel 5
+Release:	6
 License:	GPLv2+
 Group:		Networking/News
 URL:		http://www.slrn.org/
@@ -12,7 +12,6 @@ Source3:	README.rpm-slrnpull
 Patch0:		slrn-0.9.9p1-dont-strip-binaries-on-install.patch
 Requires:	inews
 Suggests:	lynx
-BuildRoot:	%{_tmppath}/%{name}-build
 BuildRequires:  slang-devel >= 2.0.0
 BuildRequires:  sendmail-command
 BuildRequires:	gettext-devel
@@ -57,7 +56,6 @@ sed -i -e 's,netscape,www-browser,g' doc/slrn.rc
 %make slrnpull
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 %find_lang %{name}
 
@@ -68,11 +66,7 @@ chmod 644 %{buildroot}/etc/news/slrn.rc
 #(peroyvind) remove unpackaged files
 rm -rf %{buildroot}%{_docdir}/%{name}
 
-%clean
-rm -rf %{buildroot}
-
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc doc/{FIRST_STEPS,README.SSL,help.txt,score.txt,slrnfuns.txt,README.macros,THANKS,manual.txt,slrn-doc.html,FAQ,README.GroupLens,README.multiuser,score.sl,slrn.rc} COPYRIGHT README changes.txt
 %attr(755,root,root) %{_bindir}/slrn
 %{_mandir}/man1/slrn.1*
@@ -81,8 +75,6 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/*
 
 %files pull
-%defattr(-,root,root)
 %doc doc/slrnpull/*
 %{_mandir}/man1/slrnpull*
 %{_bindir}/slrnpull
-
