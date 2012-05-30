@@ -10,6 +10,7 @@ Source1:	slrnpull-expire
 Source2:	slrnpull.log
 Source3:	README.rpm-slrnpull
 Patch0:		slrn-0.9.9p1-dont-strip-binaries-on-install.patch
+Patch1:		slrn-0.9.9p1-no-rpath.patch
 Requires:	inews
 Suggests:	lynx
 BuildRequires:  slang-devel >= 2.0.0
@@ -39,6 +40,7 @@ spool for offline news reading.
 %prep
 %setup -q
 %patch0 -p1 -b .nostrip~
+%patch1 -p1 -b .norpath~
 
 %build
 # Fix install of slrnpull man page, seems to be broken upstream
@@ -54,7 +56,8 @@ sed -i -e 's,netscape,www-browser,g' doc/slrn.rc
 		--with-slanginc=%{_includedir}/slang \
 		--with-nss-compat \
 		--enable-inews \
-		--enable-setgid-code
+		--enable-setgid-code \
+		--disable-rpath
 %make
 # Force build of slrnpull, again seems broken upstream - AdaMw 2008/02
 %make slrnpull
