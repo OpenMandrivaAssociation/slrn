@@ -27,17 +27,17 @@ Install slrn if you need a full-featured news reader, if you have a slow
 network connection, or if you'D like to save on-line time by reading your
 news off-line.
 
-%package pull
+%package	pull
 Summary:	Offline news reading support for slrn
 Group:		Networking/News
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{EVRD}
 
 %description pull
 This package provides slrnpull, which allows set up of a small news
 spool for offline news reading.
 
 %prep
-%setup  -q
+%setup -q
 %patch0 -p1 -b .nostrip~
 
 %build
@@ -47,10 +47,14 @@ sed -i -e 's,slrn.1,*.1,g' src/Makefile.in
 # Better default browser - AdamW 2008/02
 sed -i -e 's,netscape,www-browser,g' doc/slrn.rc
 # FHS compliant install
-%configure2_5x --sysconfdir=%{_sysconfdir}/news --with-slanginc=%{_includedir}/slang \
-               --with-slanglib=%{_libdir} --with-slrnpull \
-               --with-slanginc=%{_includedir}/slang --with-nss-compat --enable-inews --enable-setgid-code
-
+%configure2_5x	--sysconfdir=%{_sysconfdir}/news \
+		--with-slanginc=%{_includedir}/slang \
+		--with-slanglib=%{_libdir} \
+		--with-slrnpull \
+		--with-slanginc=%{_includedir}/slang \
+		--with-nss-compat \
+		--enable-inews \
+		--enable-setgid-code
 %make
 # Force build of slrnpull, again seems broken upstream - AdaMw 2008/02
 %make slrnpull
@@ -59,9 +63,9 @@ sed -i -e 's,netscape,www-browser,g' doc/slrn.rc
 %makeinstall_std
 %find_lang %{name}
 
-mkdir -p %{buildroot}/etc/{cron.daily,logrotate.d,news}
-install doc/slrn.rc %{buildroot}/etc/news/
-chmod 644 %{buildroot}/etc/news/slrn.rc
+mkdir -p %{buildroot}%{_sysconfdir}/{cron.daily,logrotate.d,news}
+install doc/slrn.rc %{buildroot}%{_sysconfdir}/news/
+chmod 644 %{buildroot}%{_sysconfdir}/news/slrn.rc
 
 #(peroyvind) remove unpackaged files
 rm -rf %{buildroot}%{_docdir}/%{name}
