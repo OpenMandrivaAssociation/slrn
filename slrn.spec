@@ -64,8 +64,7 @@ sed -i -e 's,netscape,www-browser,g' doc/slrn.rc
 %find_lang %{name}
 
 mkdir -p %{buildroot}%{_sysconfdir}/{cron.daily,logrotate.d,news}
-install doc/slrn.rc %{buildroot}%{_sysconfdir}/news/
-chmod 644 %{buildroot}%{_sysconfdir}/news/slrn.rc
+install -m644 doc/slrn.-D rc %{buildroot}%{_sysconfdir}/news/slrn.rc
 
 #(peroyvind) remove unpackaged files
 rm -rf %{buildroot}%{_docdir}/%{name}
