@@ -9,7 +9,6 @@ Source0:	ftp://slrn.sourceforge.net/pub/slrn/%{name}-%{version}.tar.bz2
 Source1:	slrnpull-expire
 Source2:	slrnpull.log
 Source3:	README.rpm-slrnpull
-Requires:	slang >= 2.0.0
 Requires:	inews
 Suggests:	lynx
 BuildRoot:	%{_tmppath}/%{name}-build
