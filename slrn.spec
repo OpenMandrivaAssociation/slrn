@@ -33,7 +33,7 @@ Summary:	Offline news reading support for slrn
 Group:		Networking/News
 Requires:	%{name} = %{EVRD}
 
-%description pull
+%description	pull
 This package provides slrnpull, which allows set up of a small news
 spool for offline news reading.
 
