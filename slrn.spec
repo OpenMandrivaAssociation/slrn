@@ -9,6 +9,7 @@ Source0:	ftp://slrn.sourceforge.net/pub/slrn/%{name}-%{version}.tar.bz2
 Source1:	slrnpull-expire
 Source2:	slrnpull.log
 Source3:	README.rpm-slrnpull
+Patch0:		slrn-0.9.9p1-dont-strip-binaries-on-install.patch
 Requires:	inews
 Suggests:	lynx
 BuildRoot:	%{_tmppath}/%{name}-build
@@ -38,6 +39,7 @@ spool for offline news reading.
 
 %prep
 %setup  -q
+%patch0 -p1 -b .nostrip~
 
 %build
 # Fix install of slrnpull man page, seems to be broken upstream
