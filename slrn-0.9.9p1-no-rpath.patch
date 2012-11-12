@@ -1,0 +1,14 @@
+--- slrn-0.9.9p1/configure.norpath~	2012-05-30 19:48:04.547059959 +0200
++++ slrn-0.9.9p1/configure	2012-05-30 19:48:13.787944432 +0200
+@@ -13357,9 +13357,9 @@ case "$host_os" in
+     then
+       if test "X$ac_R_nospace" = "Xno"
+       then
+-        RPATH="-Wl,-R,"
++        RPATH=""
+       else
+-        RPATH="-Wl,-R"
++        RPATH=""
+       fi
+     else
+       if test "X$ac_R_nospace" = "Xno"
