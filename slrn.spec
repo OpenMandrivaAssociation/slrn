@@ -1,7 +1,7 @@
 Name:		slrn
 Summary:	A powerful, easy to use, threaded Internet news reader
 Version:	0.9.9p1
-Release:	13
+Release:	14
 License:	GPLv2+
 Group:		Networking/News
 URL:		http://www.slrn.org/
