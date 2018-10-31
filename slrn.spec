@@ -1,7 +1,7 @@
 Name:		slrn
 Summary:	A powerful, easy to use, threaded Internet news reader
 Version:	0.9.9p1
-Release:	16
+Release:	17
 License:	GPLv2+
 Group:		Networking/News
 URL:		http://www.slrn.org/
@@ -87,7 +87,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
-* Wed May 30 2012 Per Øyvind Karlsen <peroyvind@mandriva.org> 0.9.9p1-6
+* Wed May 30 2012 Per Ã˜yvind Karlsen <peroyvind@mandriva.org> 0.9.9p1-6
 + Revision: 801349
 - get rid of rpath (P1)
 - cleanups
@@ -111,7 +111,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 + Revision: 420298
 + rebuild (emptylog)
 
-* Fri Jan 23 2009 Jérôme Soyer <saispo@mandriva.org> 0.9.9p1-1mdv2009.1
+* Fri Jan 23 2009 JÃ©rÃ´me Soyer <saispo@mandriva.org> 0.9.9p1-1mdv2009.1
 + Revision: 333110
 - Add inews support
 - New release upstream
@@ -163,7 +163,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 * Sun Jan 01 2006 Mandriva Linux Team <http://www.mandrivaexpert.com/> 0.9.8.1-3mdk
 - Rebuild
 
-* Tue Jul 26 2005 Nicolas L�cureuil <neoclust@mandriva.org> 0.9.8.1-2mdk
+* Tue Jul 26 2005 Nicolas Lécureuil <neoclust@mandriva.org> 0.9.8.1-2mdk
 - Fix BuildRequires
 
 * Mon Mar 14 2005 Rafael Garcia-Suarez <rgarciasuarez@mandrakesoft.com> 0.9.8.1-1mdk
@@ -184,7 +184,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 - remove merged patches
 - no more doc/SCORE_FAQ
 
-* Thu Jun 05 2003 Per �yvind Karlsen <peroyvind@sintrax.net> 0.9.7.4-3mdk
+* Thu Jun 05 2003 Per Øyvind Karlsen <peroyvind@sintrax.net> 0.9.7.4-3mdk
 - fix unpackaged files
 - macroize (light;)
 
