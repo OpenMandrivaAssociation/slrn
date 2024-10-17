@@ -4,7 +4,7 @@ Version:	0.9.9p1
 Release:	18
 License:	GPLv2+
 Group:		Networking/News
-URL:		http://www.slrn.org/
+URL:		https://www.slrn.org/
 Source0:	ftp://slrn.sourceforge.net/pub/slrn/%{name}-%{version}.tar.bz2
 Source1:	slrnpull-expire
 Source2:	slrnpull.log
