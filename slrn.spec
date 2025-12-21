@@ -13,6 +13,11 @@ Patch0:		slrn-0.9.9p1-dont-strip-binaries-on-install.patch
 Patch1:		slrn-0.9.9p1-no-rpath.patch
 Requires:	inews
 Suggests:	lynx
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	slang-devel >= 2.0.0
 BuildRequires:	sendmail-command
 BuildRequires:	gettext-devel
